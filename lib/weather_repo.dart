@@ -7,8 +7,9 @@ class WeatherRepository {
   Future<WeatherModel?> getWeather(
       {required double latitude,
       required double longitude,
+      required String lang,
       required String apiKey}) {
     return _apiProvider.getWeather(
-        latitude: latitude, longitude: longitude, apiKey: apiKey);
+        latitude: latitude, longitude: longitude, lang: lang, apiKey: apiKey);
   }
 }

@@ -21,6 +21,7 @@ class MyApp extends StatelessWidget {
           child: OpenWeatherWidget(
             latitude: 22.550460,
             longitude: 88.347311,
+            lang: 'en',
             location: "Kolkata",
             height: 180,
             apiKey: apiKey,

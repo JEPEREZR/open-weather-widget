@@ -10,9 +10,10 @@ class WeatherBloc {
   getWeather(
       {required double latitude,
       required double longitude,
+      required String lang,
       required String apiKey}) async {
     WeatherModel? response = await _repository.getWeather(
-        latitude: latitude, longitude: longitude, apiKey: apiKey);
+        latitude: latitude, longitude: longitude, lang: lang, apiKey: apiKey);
     _subject.sink.add(response);
   }
 

@@ -73,9 +73,12 @@ class _WeatherWidgetState extends State<WeatherWidget> {
             WeatherModel? data = snapshot.data as WeatherModel;
             todayTemp = data.current.temp.toString();
             return Container(
-              height: widget.height == null || widget.height! < 180 ? 180 : widget.height,
+              height: widget.height == null || widget.height! < 180
+                  ? 180
+                  : widget.height,
               width: widget.width ?? MediaQuery.of(context).size.width,
-              padding: widget.padding ?? EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+              padding: widget.padding ??
+                  EdgeInsets.symmetric(horizontal: 14, vertical: 8),
               margin: widget.margin ?? EdgeInsets.all(0),
               decoration: BoxDecoration(
                 color: widget.color ?? Colors.white,
@@ -96,32 +99,37 @@ class _WeatherWidgetState extends State<WeatherWidget> {
                             style: widget.locationTextStyle ??
                                 TextStyle(
                                   fontSize: 23,
-                                  color: widget.locationColor ?? Colors.grey[800],
+                                  color:
+                                      widget.locationColor ?? Colors.grey[800],
                                 ),
                           ),
                           humidityAndWind(snapshot.data, index),
                         ],
                       ),
-                      Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                        Text(
-                          "${currentTemp!.substring(0, 2) == "25" ? data.current.temp.toString().substring(0, 2) : currentTemp!.substring(0, 2)}",
-                          style: widget.temperatureTextStyle ??
-                              TextStyle(
-                                  fontSize: 59,
-                                  color: widget.temperatureColor ?? Colors.grey[700],
-                                  fontWeight: FontWeight.w300,
-                                  fontFamily: "Poppin",
-                                  height: 1),
-                        ),
-                        Text(
-                          "°C",
-                          style: widget.temperatureScaleTextStyle ??
-                              TextStyle(
-                                fontSize: 15,
-                                color: widget.temperatureColor ?? Colors.grey[700],
-                              ),
-                        ),
-                      ]),
+                      Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "${currentTemp!.substring(0, 2) == "25" ? data.current.temp.toString().substring(0, 2) : currentTemp!.substring(0, 2)}",
+                              style: widget.temperatureTextStyle ??
+                                  TextStyle(
+                                      fontSize: 59,
+                                      color: widget.temperatureColor ??
+                                          Colors.grey[700],
+                                      fontWeight: FontWeight.w300,
+                                      fontFamily: "Poppin",
+                                      height: 1),
+                            ),
+                            Text(
+                              "°C",
+                              style: widget.temperatureScaleTextStyle ??
+                                  TextStyle(
+                                    fontSize: 15,
+                                    color: widget.temperatureColor ??
+                                        Colors.grey[700],
+                                  ),
+                            ),
+                          ]),
                     ],
                   ),
                   const SizedBox(
@@ -145,18 +153,24 @@ class _WeatherWidgetState extends State<WeatherWidget> {
         itemCount: weather!.daily.length,
         itemBuilder: (context, index) {
           var data = weather.daily;
-          bool currentDay = DateFormat('yyyy-MM-dd').format(DateTime.fromMillisecondsSinceEpoch(data[index].dt * 1000)) ==
+          bool currentDay = DateFormat('yyyy-MM-dd').format(
+                  DateTime.fromMillisecondsSinceEpoch(data[index].dt * 1000)) ==
               DateFormat('yyyy-MM-dd').format(DateTime.now());
           return _columnBuilder(
             index: index,
             day: currentDay
-                ? "Today"
-                : DateFormat('EEEE').format(DateTime.fromMillisecondsSinceEpoch(data[index].dt * 1000)).substring(0, 3),
+                ? "Hoy"
+                : DateFormat('EEEE')
+                    .format(DateTime.fromMillisecondsSinceEpoch(
+                        data[index].dt * 1000))
+                    .substring(0, 3),
             max: data[index].temp.max.toString().substring(0, 2),
             min: data[index].temp.min.toString().substring(0, 2),
             weatherId: data[index].weather[0].id,
             isToday: currentDay ? true : false,
-            current: currentDay ? todayTemp : data[index].temp.max.toString().substring(0, 2),
+            current: currentDay
+                ? todayTemp
+                : data[index].temp.max.toString().substring(0, 2),
           );
         },
       ),
@@ -168,14 +182,14 @@ class _WeatherWidgetState extends State<WeatherWidget> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          "${data.daily[index].weather[0].description.toString().toTitleCase()} / Humidity: ${data.daily[index].humidity.toString()}%",
+          "${data.daily[index].weather[0].description.toString().toTitleCase()} / Humedad: ${data.daily[index].humidity.toString()}%",
           style: widget.weatherDetailsTextStyle ??
               TextStyle(
                 fontSize: 12,
               ),
         ),
         Text(
-          "Wind: ${(data.daily[index].windSpeed * 3.6).toString().substring(0, 2)} km/h",
+          "Viento: ${(data.daily[index].windSpeed * 3.6).toString().substring(0, 2)} km/h",
           style: widget.weatherDetailsTextStyle ??
               TextStyle(
                 fontSize: 12,
@@ -186,7 +200,14 @@ class _WeatherWidgetState extends State<WeatherWidget> {
     );
   }
 
-  Widget _columnBuilder({int? index, String? day, String? max, String? min, int? weatherId, bool? isToday, String? current}) {
+  Widget _columnBuilder(
+      {int? index,
+      String? day,
+      String? max,
+      String? min,
+      int? weatherId,
+      bool? isToday,
+      String? current}) {
     IconData iconData = weatherIcon(weatherId);
     return GestureDetector(
       onTap: () {
@@ -202,7 +223,8 @@ class _WeatherWidgetState extends State<WeatherWidget> {
           decoration: this.index == index
               ? BoxDecoration(
                   color: widget.activeColor ?? Colors.grey[100],
-                  borderRadius: widget.activeBorderRadius ?? BorderRadius.circular(5))
+                  borderRadius:
+                      widget.activeBorderRadius ?? BorderRadius.circular(5))
               : null,
           child: Column(
             children: [

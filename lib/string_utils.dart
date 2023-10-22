@@ -1,4 +1,4 @@
-String? convertToTitleCase(String text) {
+String? convertToTitleCase(String? text) {
   if (text == null) {
     return null;
   }

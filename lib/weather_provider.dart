@@ -16,8 +16,9 @@ class WeatherApiProvider {
       Response response = await _dio.get(_endpoint);
       return WeatherModel.fromJson(response.data);
     } catch (error, stacktrace) {
-      print("Exception occured: $error stackTrace: $stacktrace");
+      print("Exception occurred: $error stackTrace: $stacktrace");
       // return WeatherModel.withError("$error");
     }
+    return null;
   }
 }
